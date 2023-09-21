@@ -1,23 +1,28 @@
-import {Component, Inject} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MAT_DIALOG_DATA, MatDialogModule} from "@angular/material/dialog";
-import {MatButtonModule} from "@angular/material/button";
+import { Component, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 export type DialogData = {
-  title: string,
-  text: string
-}
+  title: string;
+  text: string;
+};
 
 @Component({
   selector: 'app-simple-dialog',
   standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule],
-  templateUrl: './simple-dialog.component.html',
-  styleUrls: ['./simple-dialog.component.scss']
+  template: `
+    <h1 mat-dialog-title>{{ data.title }}</h1>
+    <div mat-dialog-content>
+      {{ data.text }}
+    </div>
+    <div mat-dialog-actions>
+      <button [mat-dialog-close]="false" mat-button>Cancel</button>
+      <button [mat-dialog-close]="true" mat-button>Ok</button>
+    </div>
+  `,
 })
 export class SimpleDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
-  }
-
-
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }
