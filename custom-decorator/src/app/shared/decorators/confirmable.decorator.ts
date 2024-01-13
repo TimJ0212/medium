@@ -1,14 +1,15 @@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SimpleDialogComponent } from '../../components/simple-dialog/simple-dialog.component';
-import { AppModule } from '../../app.module';
-import { Type } from '@angular/core';
+import {Type} from '@angular/core';
+import {AppComponent} from "../../app.component";
+import {Decorator} from "./decorator";
 
 export interface ConfirmableDecoratorOptions {
   title?: string;
   text?: string;
 }
 
-export function Confirmable() {
+export function Confirmable(): Decorator {
   return (
     target: Object,
     propertyKey: string,
@@ -16,12 +17,12 @@ export function Confirmable() {
   ) => {
     const originalMethod = descriptor.value;
     const config: ConfirmableDecoratorOptions = {
-      title: 'Confirmationen needed',
+      title: 'Confirmation needed',
       text: 'Are you sure?',
     };
 
     descriptor.value = async function (...args: any[]) {
-      const dialog: MatDialog = AppModule.INJECTOR.get<MatDialog>(
+      const dialog: MatDialog = AppComponent.injector.get<MatDialog>(
         MatDialog as Type<MatDialog>
       );
       const dialogRef: MatDialogRef<SimpleDialogComponent> = dialog.open(
