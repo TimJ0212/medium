@@ -11,8 +11,8 @@ export interface ConfirmableDecoratorOptions {
 
 export function Confirmable(): Decorator {
   return (
-    target: Object,
-    propertyKey: string,
+    _target: Object,
+    _propertyKey: string,
     descriptor: PropertyDescriptor
   ) => {
     const originalMethod = descriptor.value;
